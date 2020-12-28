@@ -3,7 +3,6 @@ package com.company.springmvcweb;
 
 import com.company.springmvcweb.data.*;
 import com.company.springmvcweb.data.CourseRepository;
-import com.company.springmvcweb.data.Participant;
 import com.company.springmvcweb.dto.CourseSearchDto;
 import com.company.springmvcweb.dto.LoginSearchDto1;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,7 @@ public class ParticipantController {
 
     @GetMapping("/courses")
     public String owner(Model model) {
-
+        userId = 0;
         var items = repo.getAllCourses();
 
         model.addAttribute("title", "Courses");
@@ -35,13 +34,42 @@ public class ParticipantController {
 
     @PostMapping("/courses")
     public String searchCourses(@ModelAttribute("searchDto") CourseSearchDto dto, Model model) {
-
+        userId = 0;
         var items = repo.getCoursesPerIndustryAndOrLevel(dto);
 
         model.addAttribute("title", "Courses");
         model.addAttribute("courses", items);
 
         return "courses";
+    }
+
+    @GetMapping("/user/courses")
+    public String allCourses(Model model) {
+
+        var items = repo.getAllCourses();
+
+        model.addAttribute("title", "Courses");
+        model.addAttribute("courses", items);
+
+        var participant = repo1.getParticipant(userId);
+        model.addAttribute("userId", userId);
+
+        return "user_allcourses";
+    }
+
+
+    @PostMapping("/user/courses")
+    public String allCourses(@ModelAttribute("searchDto") CourseSearchDto dto, Model model) {
+
+        var items = repo.getCoursesPerIndustryAndOrLevel(dto);
+
+        model.addAttribute("title", "Courses");
+        model.addAttribute("courses", items);
+
+        var participant = repo1.getParticipant(userId);
+        model.addAttribute("userId", userId);
+
+        return "user_allcourses";
     }
 
     //    @PostMapping("/owners")
@@ -76,11 +104,19 @@ public class ParticipantController {
         model.addAttribute("course", course);
         model.addAttribute("id", id);
         model.addAttribute("freeSlots", course.getFreeSlots());
+
+        var participant = repo1.getParticipant(userId);
+        model.addAttribute("userId", userId);
+
+        if (userId==0){
+            return "courses_details";
+        }
         if (course.getFreeSlots()==0){
             return "courses_details_2";
         }
 
-        return "courses_details";
+
+        return "courses_details_u";
     }
 
     @GetMapping("/courses/{id}/cancel")
@@ -91,7 +127,6 @@ public class ParticipantController {
         model.addAttribute("course", course);
         model.addAttribute("id", id);
 
-        //šis jāizlabo, jāsasaista ar login konta info!!!!!!!
         var participant = repo1.getParticipant(userId);
         repo1.cancelCourse(id,userId);
 
@@ -104,27 +139,32 @@ public class ParticipantController {
 
         var course = repo.getCourseById(id);
 
-        //šis jāizlabo, jāsasaista ar login konta info!!!!!!!
-        var participant = repo1.getParticipant(userId);
+        if (userId == 0) {
+            return "sign_up_or_log_in";
+        } else {
+
+            var participant = repo1.getParticipant(userId);
 
 
-        model.addAttribute("title", course != null ? course.getTitle() : "");
-        model.addAttribute("course", course);
-        model.addAttribute("participant", participant);
-        model.addAttribute("name", participant.getName());
-        model.addAttribute("surname", participant.getSurname());
-        model.addAttribute("e-mail", participant.geteMail());
+            model.addAttribute("title", course != null ? course.getTitle() : "");
+            model.addAttribute("course", course);
+            model.addAttribute("participant", participant);
+            model.addAttribute("name", participant.getName());
+            model.addAttribute("surname", participant.getSurname());
+            model.addAttribute("e-mail", participant.geteMail());
 
-        repo1.registerForCourse(0, id, userId);
+            repo1.registerForCourse(0, id, userId);
 
-        return "courses_details_register";
+
+            return "courses_details_register";
+        }
     }
 
 
     @GetMapping("/courses/{id}/cancel/confirm")
     public String cancelCoursesConfirm(@PathVariable int id, Model model) {
 
-        return "courses_details_cancel_confirm";
+        return "courses_details_cancel_conf";
     }
 
     @GetMapping("/courses/{id}/register/confirm")
