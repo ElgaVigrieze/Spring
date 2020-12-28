@@ -20,23 +20,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul  class="navbar-nav justify-content-between">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/log_in">Log in</a>
+                        <a class="nav-link" aria-current="page" href="/user/courses">All courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/sign_up">Sign up</a>
+                        <a class="nav-link" aria-current="page" href="/user_courses">My courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/courses">View all courses</a>
+                        <a class="nav-link" aria-current="page" href="/courses">Log out</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <body>
+
 
     <h1 th:text="${title}"></h1>
 
-    <form method="post" action="/courses" name="searchDto">
+    <form method="post" action="/user/courses" name="searchDto">
         <div class="mb-3">
 
             <label for="industry">Choose industry:</label>
