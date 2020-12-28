@@ -31,7 +31,7 @@
         </div>
     </nav>
 
-        <h1 th:text="${title}"></h1>
+    <h1 th:text="${title}"></h1>
 
     <table>
         <tr>
@@ -79,29 +79,29 @@
             <td th:text="${course.getDescription()}"/>
         </tr>
 
-
     </table>
+    </form>
 
 
-    <form method="post" th:action="${'/courses/' + id + '/register'}">
-        <button type="submit" class="btn btn-success">Register</button>
+    <form method="post" th:action="${'/courses/' + id + '/cancel/confirm'}">
+        <button type="submit" class="btn btn-danger">Confirm cancellation</button>
 
 
 
 
 
-<!--    <form method="post" th:action="${'/cars/' + id}" name="updateDto">-->
-<!--        <div class="mb-3">-->
-<!--            <label for="number" class="form-label">Number</label>-->
-<!--            <input type="text" class="form-control" name="number" id="number">-->
-<!--        </div>-->
-<!--        <div class="mb-3">-->
-<!--            <label for="vinNumber" class="form-label">Vin number</label>-->
-<!--            <input type="text" class="form-control" name="vinNumber" id="vinNumber">-->
-<!--        </div>-->
-<!--        <a href="/cars" class="btn btn-danger" role="button">Cancel</a>-->
-<!--        <button type="submit" class="btn btn-success">Save</button>-->
-<!--    </form>-->
+        <!--    <form method="post" th:action="${'/cars/' + id}" name="updateDto">-->
+        <!--        <div class="mb-3">-->
+        <!--            <label for="number" class="form-label">Number</label>-->
+        <!--            <input type="text" class="form-control" name="number" id="number">-->
+        <!--        </div>-->
+        <!--        <div class="mb-3">-->
+        <!--            <label for="vinNumber" class="form-label">Vin number</label>-->
+        <!--            <input type="text" class="form-control" name="vinNumber" id="vinNumber">-->
+        <!--        </div>-->
+        <!--        <a href="/cars" class="btn btn-danger" role="button">Cancel</a>-->
+        <!--        <button type="submit" class="btn btn-success">Save</button>-->
+        <!--    </form>-->
 
 
 </div>

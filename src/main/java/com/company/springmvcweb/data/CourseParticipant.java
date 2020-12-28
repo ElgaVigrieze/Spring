@@ -26,4 +26,37 @@ public class CourseParticipant {
     private int courseId;
     @Column(name = "participant_id")
     private int participantId;
+
+    public CourseParticipant(int id, int courseId, int participantId) {
+        this.id = id;
+        this.courseId = courseId;
+        this.participantId = participantId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public int getParticipantId() {
+        return participantId;
+    }
+
+    public void setParticipantId(int participantId) {
+        this.participantId = participantId;
+    }
+
+    public CourseParticipant() {
+    }
 }
